@@ -1,6 +1,7 @@
 workspace(name = "bazel_playground")
 
-load("@bazel_tools//tools/build/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
 
 http_archive(
     name = "io_bazel_rules_closure",
@@ -12,7 +13,7 @@ http_archive(
 )
 
 http_archive(
-    name = "io_bazel_rules_proto",
+    name = "build_bazel_rules_proto",
     sha256 = "b851e971f5b8ab82e19ac0ac6a80605a50c476400253b751b7828b3b03134589",
     strip_prefix = "rules_proto-c5e0081628a2cbaf6855152ffa6a1984c2ff10a5",
     urls = [
