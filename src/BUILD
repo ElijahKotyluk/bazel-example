@@ -1,17 +1,49 @@
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_Library")
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+load("@io_bazel_rules_closure//closure:defs.bzl",
+     "closure_js_library",
+     "closure_js_binary",
+     "closure_js_deps",
+     "web_library")
+
+alias(name = "entrypoint-sample",
+      actual = "//entrypoints:sample.html")
+
+alias(name = "entrypoint-sample-dev",
+      actual = "//entrypoints:sample-dev.html")
+
+DEBUG = True
 
 closure_js_library(
     name = "main_js",
     srcs = [
-        "index.js"
+        "index.js",
+    ],
+    deps = [
+      "@io_bazel_rules_closure//closure/library/dom:tagname",
+    ],
+)
+
+closure_js_deps(
+    name = "deps",
+    deps = [
+        ":main_js",
     ],
 )
 
 closure_js_binary(
-    name = "js_bundle",
-    srcs = [
-        ":main_js"
+    name = "bundle",
+    deps = [
+        ":main_js",
     ],
-    visibility = ["//visibility:public"]
+    entry_points = [
+        "boot",
+    ],
+    language = "ECMASCRIPT5",
+    debug = DEBUG,
+    formatting = DEBUG and "PRETTY_PRINT" or None,
+    dependency_mode = "STRICT",
+    compilation_level = "ADVANCED",
 )
+
