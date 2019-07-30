@@ -8,13 +8,26 @@ load("@io_bazel_rules_closure//closure:defs.bzl",
      "closure_js_deps",
      "web_library")
 
-alias(name = "entrypoint-sample",
+alias(name = "sample.html",
       actual = "//entrypoints:sample.html")
 
-alias(name = "entrypoint-sample-dev",
+alias(name = "sample-dev.html",
       actual = "//entrypoints:sample-dev.html")
 
 DEBUG = True
+
+web_library(
+    name = "bundle-js",
+    srcs = [":bundle"],
+    path = "/",
+)
+
+web_library(
+    name = "entrypoint-sample-web",
+    srcs = [":sample.html"],
+    path = "/",
+    deps = [":bundle-js"],
+)
 
 closure_js_library(
     name = "main_js",
@@ -52,4 +65,8 @@ j2cl_application(
     name = "app",
     entry_points = ["boot"],
     deps = [":main_js"],
+    extra_dev_resources = [
+        "sample.html",
+        "bundle.js"
+    ],
 )
