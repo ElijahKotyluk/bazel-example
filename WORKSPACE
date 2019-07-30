@@ -3,7 +3,35 @@ workspace(name = "bazel_example")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
+## J2CL:
+http_archive(
+    name = "com_google_j2cl",
+    strip_prefix = "j2cl-master",
+    url = "https://github.com/google/j2cl/archive/master.zip",
+)
 
+load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
+load_j2cl_repo_deps()
+
+load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
+setup_j2cl_workspace()
+
+## SASS:
+http_archive(
+    name = "io_bazel_rules_sass",
+    # Make sure to check for the latest version when you install
+    url = "https://github.com/bazelbuild/rules_sass/archive/1.22.9.zip",
+    strip_prefix = "rules_sass-1.22.9",
+    sha256 = None,
+)
+
+load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
+rules_sass_dependencies()
+
+load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
+sass_repositories()
+
+## Closure:
 http_archive(
     name = "io_bazel_rules_closure",
     sha256 = "e86a126f10ec42a7127322af6264a31d76b4222fae8d1be26e5471409ef5bc41",
@@ -22,28 +50,19 @@ http_archive(
     ],
 )
 
-http_archive(
-    name = "com_google_j2cl",
-    strip_prefix = "j2cl-master",
-    url = "https://github.com/google/j2cl/archive/master.zip",
-)
-
-load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
-load_j2cl_repo_deps()
-
-load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
-setup_j2cl_workspace()
-
 load("@io_bazel_rules_closure//closure:defs.bzl", "closure_repositories")
 
 closure_repositories()
 
+
+## Javascript:
 git_repository(
     name = "bazel_javascript",
     remote = "https://github.com/zenclabs/bazel-javascript.git",
     tag = "0.0.28",
 )
 
+## NodeJS:
 http_archive(
     name = "build_bazel_rules_nodejs",
     sha256 = "7c4a690268be97c96f04d505224ec4cb1ae53c2c2b68be495c9bd2634296a5cd",
