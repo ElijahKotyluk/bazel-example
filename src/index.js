@@ -1,4 +1,3 @@
-
 goog.provide('boot');
 goog.require('goog.dom.TagName');
 
