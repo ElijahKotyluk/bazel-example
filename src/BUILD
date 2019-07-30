@@ -1,5 +1,6 @@
-
 package(default_visibility = ["//visibility:public"])
+load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_application")
+
 
 load("@io_bazel_rules_closure//closure:defs.bzl",
      "closure_js_library",
@@ -47,3 +48,8 @@ closure_js_binary(
     compilation_level = "ADVANCED",
 )
 
+j2cl_application(
+    name = "app",
+    entry_points = ["boot"],
+    deps = [":main_js"],
+)
