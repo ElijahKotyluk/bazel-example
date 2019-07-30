@@ -3,5 +3,9 @@
   "version": "1.0.0",
   "main": "src/index",
   "author": "Elijah Kotyluk <elijah@elijahkotyluk.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@bazel/bazel": "^0.28.1"
+  }
 }
