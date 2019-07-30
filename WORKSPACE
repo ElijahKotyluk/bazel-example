@@ -1,6 +1,7 @@
-workspace(name = "bazel_playground")
+workspace(name = "bazel_example")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 
 http_archive(
@@ -24,3 +25,21 @@ http_archive(
 load("@io_bazel_rules_closure//closure:defs.bzl", "closure_repositories")
 
 closure_repositories()
+
+git_repository(
+    name = "bazel_javascript",
+    remote = "https://github.com/zenclabs/bazel-javascript.git",
+    tag = "0.0.28",
+)
+
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "7c4a690268be97c96f04d505224ec4cb1ae53c2c2b68be495c9bd2634296a5cd",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.34.0/rules_nodejs-0.34.0.tar.gz"],
+)
+
+load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
+
+node_repositories(
+    package_json = [],
+)
