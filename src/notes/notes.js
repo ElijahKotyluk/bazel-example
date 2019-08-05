@@ -1,5 +1,5 @@
-goog.provide('example.notes');
-goog.provide('Note');
+goog.module('example.notes');
+goog.module('Note');
 
 goog.require('goog.dom');
 goog.require('goog.dom.TagName');
