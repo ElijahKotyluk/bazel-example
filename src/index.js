@@ -1,4 +1,4 @@
-goog.module('boot');
+goog.provide('boot');
 goog.require('example.notes');
 
 /**
