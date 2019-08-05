@@ -33,9 +33,12 @@ closure_js_library(
     name = "main_js",
     srcs = [
         "index.js",
+        "notes/notes.js",
     ],
     deps = [
+      "@io_bazel_rules_closure//closure/library/dom",
       "@io_bazel_rules_closure//closure/library/dom:tagname",
+      "@io_bazel_rules_closure//closure/library/ui:zippy",
     ],
 )
 
